@@ -58,20 +58,21 @@ object covid19_knowledge_graph {
             model.expandPrefix("schema:text")), section.get("text").asInstanceOf[String], "en")
         }
       }
-      val outFile = new BufferedWriter(new FileWriter(new File("covid19_knowledge_graph.ttl")))
-      RDFDataMgr.write(outFile, model, org.apache.jena.riot.RDFFormat.TURTLE_PRETTY)
-      outFile.close()
     }
+    val outFile = new BufferedWriter(new FileWriter(new File("covid19_knowledge_graph.ttl")))
+    RDFDataMgr.write(outFile, model, org.apache.jena.riot.RDFFormat.TURTLE_PRETTY)
+    outFile.close()
+  }
 
-    def loadJSON(file: File): Option[JSONObject] = {
-      val parser = new JSONParser
-      try Some(parser.parse(new FileReader(file)).asInstanceOf[JSONObject])
-      catch {
-        case e: Exception =>
-          println(s"ERROR: $file: ${e.getMessage}")
-          None
-      }
+  def loadJSON(file: File): Option[JSONObject] = {
+    val parser = new JSONParser
+    try Some(parser.parse(new FileReader(file)).asInstanceOf[JSONObject])
+    catch {
+      case e: Exception =>
+        println(s"ERROR: $file: ${e.getMessage}")
+        None
     }
+  }
 //
 //    def executeWikidataDescriptionQuery(label: String): Literal = {
 //      val query = getWikidataDescriptionQuery(label)
@@ -119,6 +120,6 @@ object covid19_knowledge_graph {
 //        }
 //      }
 //    }
-  }
+  
 }
 
